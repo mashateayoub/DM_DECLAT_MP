@@ -5,11 +5,13 @@ import numpy as np
 
 
 class dEclat:
-    def __init__(self, minsupp: int, binaryTransactionsDB: pd.DataFrame):
+    def __init__(self, minsupp: int, binaryTransactionsDB: pd.DataFrame, Items):
         self.minsupp = minsupp
+        self.items = Items
         self.database = binaryTransactionsDB
         self.tidsetDB = self.genTidsets()
         self.diffsetDB = self.genLvl1Diffsets()
+        self.frequentItems = self.frequentItems()
 
     def genTidsets(self):
         tidsetDB = {}
@@ -23,7 +25,6 @@ class dEclat:
         return tidsetDB
 
     def genLvl1Diffsets(self):
-        self.tidsetDB = self.genTidsets()
         diffsetDB = {}
         for j in self.tidsetDB:
             l = []
@@ -34,9 +35,7 @@ class dEclat:
 
         return diffsetDB
 
-    def genLvl2Diffsets(self, n=2):
-        self.tidsetDB = self.genTidsets()
-        self.diffsetDB = self.genLvl1Diffsets()
+    def genLvl2Diffsets(self):
         d = {}
         m = 1
         for i in self.diffsetDB:
@@ -48,3 +47,18 @@ class dEclat:
                 d[m] = (l, i, j, self.diffsetDB[i][1] - len(l))
                 m = m + 1
         return d
+
+    def frequentItems(self):
+        n = (self.minsupp * self.database) / 100
+        freq = []
+        for i in self.diffsetDB:
+            if self.diffsetDB[i][1] >= n:
+                obj = (self.items[i], self.diffsetDB[i][1] / len(self.database))
+                freq.append(obj)
+        return freq
+
+    def assocRules(self):
+        return 0
+
+    def runAlgo():
+        return 0
