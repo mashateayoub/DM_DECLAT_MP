@@ -34,6 +34,6 @@ transactionsDataframe.to_csv(r"Transactions.csv")
 
 
 # dEclat  : 300 transaction (minsup=39,0625%)
-d = dEclat(minsupp=39, binaryTransactionsDB=transactionsDataframe, Items=Items)
+d = dEclat(minsupp=10, binaryTransactionsDB=transactionsDataframe, Items=Items)
 for i in d.frequentItems:
     print(i)

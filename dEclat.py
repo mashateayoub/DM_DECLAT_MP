@@ -49,7 +49,7 @@ class dEclat:
         return d
 
     def frequentItems(self):
-        n = (self.minsupp * self.database) / 100
+        n = (self.minsupp * len(self.database)) / 100
         freq = []
         for i in self.diffsetDB:
             if self.diffsetDB[i][1] >= n:
@@ -60,5 +60,5 @@ class dEclat:
     def assocRules(self):
         return 0
 
-    def runAlgo():
+    def rundEclat():
         return 0
