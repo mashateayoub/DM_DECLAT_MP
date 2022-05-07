@@ -1,39 +1,21 @@
-from Parser import ParserDiabete as pr
-import pandas as pd
 
 from dEclat import dEclat
+import os
 
-# Items utlises
-Items = {
-    1: "NormalGlucose",  # Glucose
-    2: "PrediabeteGlucose",
-    3: "DiabeteGlucose",
-    4: "NormalBloodPressure",  # Blood Pressure
-    5: "Hypertension1BloodPressure",
-    6: "Hypertension2BloodPressure",
-    7: "UnderweightBMI",  # BMI
-    8: "HealthyweightBMI",
-    9: "OverweightBMI",
-    10: "ObesityBMI",
-    11: "Childhood",  # Age
-    12: "Adolescence",
-    13: "EarlyAdulthood",
-    14: "Adulthood",
-    15: "MiddleAge",
-    16: "EarlyElder",
-    17: "LateElder",
-    18: "OutcomeYes",  # Outcome
-    19: "OutcomeNo",
-}
+# dEclat  : minsupp=10%
+print("==============dEclat: Version Beta :==========================")
+
+d = dEclat(minsupp=25, data="diabetes.csv")
+d.rundEclat()
 
 
-data = pd.read_csv(r"diabetes.csv")
-parser = pr(data)
-transactionsDataframe = parser.parse(items=Items)
-transactionsDataframe.to_csv(r"Transactions.csv")
+print(" ")
+print("===========================Stats: ============================")
+print("Minimum support: "+str(d.minsupp)+"%")
+file_size = os.path.getsize(r'diabetes.csv') 
+print('Database Size:', file_size/1024, ' Kb')
+print("Transactions count from database :"+str(len(d.data)))
+print("Frequent itmsets count :"+str(len(d.frequentItems)))
+print("Total Time ~ "+str((d.end_timestamp - d.start_timestamp)*100)+" ms")
+print("Maximum Memory usage ~ "+str(d.peak_memory/1024 )+" Ko")
 
-
-# dEclat  : 300 transaction (minsup=39,0625%)
-d = dEclat(minsupp=10, binaryTransactionsDB=transactionsDataframe, Items=Items)
-for i in d.frequentItems:
-    print(i)
