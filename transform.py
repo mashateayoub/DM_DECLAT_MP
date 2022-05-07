@@ -31,7 +31,7 @@ Items = {
 data = pd.read_csv(r"diabetes.csv")
 parser = pr(data) # Custom Parser
 
-# New Database 
+# New Database : Transactional database (non binary)
 parsedData = pd.DataFrame(columns=["Glucose","Blood Pressure","BMI","Age","Outcome"])
 for i in range(0, len(data)):    
     list = data.loc[i]

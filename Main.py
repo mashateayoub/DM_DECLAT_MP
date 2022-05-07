@@ -2,7 +2,7 @@
 from dEclat import dEclat
 import os
 
-# dEclat  : minsupp=10%
+# dEclat  : minsupp=25%
 print("==============dEclat: Version Beta :(single & tuple itemsets) ==========================")
 
 d = dEclat(minsupp=25, data="diabetes.csv")
