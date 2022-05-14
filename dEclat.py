@@ -104,3 +104,16 @@ class dEclat:
         tracemalloc.stop()
         self.end_timestamp = time.time()
         return 0
+
+    def rundExp(self):
+        self.start_timestamp = time.time()
+        tracemalloc.start()
+        self.database= self.parser.parse(items=self.items);
+        self.genTidsets()
+        self.genLvl1Diffsets()
+        self.genLvl2Diffsets()
+        self.freqItems()
+        _,self.peak_memory = tracemalloc.get_traced_memory()
+        tracemalloc.stop()
+        self.end_timestamp = time.time()
+        return 0
