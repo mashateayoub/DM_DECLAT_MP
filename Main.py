@@ -10,23 +10,23 @@ import matplotlib.pyplot as plt
 from mlxtend.frequent_patterns import apriori
 from mlxtend.frequent_patterns import association_rules
 
-# # dEclat  : minsupp=20%
-# # Test :
-# print("==================== dEclat: (max_comb=2) ==========================")
+# dEclat  : minsupp=20%
+# Test :
+print("==================== dEclat: (max_comb=2) ==========================")
 
-# d = dEclat(minsupp=20, data="diabetes.csv")
-# d.rundEclat()
+d = dEclat(minsupp=20, data="diabetes.csv")
+d.rundEclat()
 
 
-# print(" ")
-# print("=========================== Statistiques : ============================")
-# print("Minimum support: "+str(d.minsupp)+"%")
-# file_size = os.path.getsize(r'diabetes.csv') 
-# print("Database Size: ", file_size/1024, "Kb")
-# print("Transactions count from database :"+str(len(d.data)))
-# print("Frequent itmsets count :"+str(len(d.frequentItems)))
-# print("Total Time ~ "+str((d.end_timestamp - d.start_timestamp))+" s")
-# print("Maximum Memory usage ~ "+str(d.peak_memory/1024 )+" Kb")
+print(" ")
+print("=========================== Statistiques : ============================")
+print("Minimum support: "+str(d.minsupp)+"%")
+file_size = os.path.getsize(r'diabetes.csv') 
+print("Database Size: ", file_size/1024, "Kb")
+print("Transactions count from database :"+str(len(d.data)))
+print("Frequent itmsets count :"+str(len(d.frequentItems)))
+print("Total Time ~ "+str((d.end_timestamp - d.start_timestamp))+" s")
+print("Maximum Memory usage ~ "+str(d.peak_memory/1024 )+" Kb")
 
 # # ECLAT 
 # dataframe = pd.read_csv('DiabetesTransactions.csv', header=None) 
