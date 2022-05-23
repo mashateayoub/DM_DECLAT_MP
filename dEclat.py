@@ -8,25 +8,11 @@ class dEclat:
     def __init__(self, minsupp: int, data):
         self.minsupp = minsupp
         self.items = {
-                1: "NormalGlucose",  # Glucose
-                2: "PrediabeteGlucose",
-                3: "DiabeteGlucose",
-                4: "NormalBloodPressure",  # Blood Pressure
-                5: "Hypertension1BloodPressure",
-                6: "Hypertension2BloodPressure",
-                7: "UnderweightBMI",  # BMI
-                8: "HealthyweightBMI",
-                9: "OverweightBMI",
-                10: "ObesityBMI",
-                11: "Childhood",  # Age
-                12: "Adolescence",
-                13: "EarlyAdulthood",
-                14: "Adulthood",
-                15: "MiddleAge",
-                16: "EarlyElder",
-                17: "LateElder",
-                18: "OutcomeYes",  # Outcome
-                19: "OutcomeNo",
+                1: "NormalGlucose",  2: "PrediabeteGlucose", 3: "DiabeteGlucose",
+                4: "NormalBloodPressure",  5: "Hypertension1BloodPressure",6: "Hypertension2BloodPressure",
+                7: "UnderweightBMI", 8: "HealthyweightBMI", 9: "OverweightBMI", 10: "ObesityBMI",
+                11: "Childhood",  12: "Adolescence",13: "EarlyAdulthood",14: "Adulthood",15: "MiddleAge",16: "EarlyElder",17: "LateElder",
+                18: "OutcomeYes",  19: "OutcomeNo",
             }
         self.data = pd.read_csv(data)
         self.parser = pr(self.data)
@@ -35,6 +21,22 @@ class dEclat:
         self.diffsetDB = {}
         self.d={}
         self.frequentItems = []
+
+    def rundEclat(self):
+        self.start_timestamp = time.time()
+        tracemalloc.start()
+        self.database= self.parser.parse(items=self.items);
+        self.genTidsets()
+        self.genLvl1Diffsets()
+        self.genLvl2Diffsets()
+        self.freqItems()
+        print(" ")
+        for i in self.frequentItems:
+            print(i)
+        _,self.peak_memory = tracemalloc.get_traced_memory()
+        tracemalloc.stop()
+        self.end_timestamp = time.time()
+        return 0
 
     def genTidsets(self):
         tidsetDB = {}
@@ -89,21 +91,7 @@ class dEclat:
         self.frequentItems=freq
 
 
-    def rundEclat(self):
-        self.start_timestamp = time.time()
-        tracemalloc.start()
-        self.database= self.parser.parse(items=self.items);
-        self.genTidsets()
-        self.genLvl1Diffsets()
-        self.genLvl2Diffsets()
-        self.freqItems()
-        print(" ")
-        for i in self.frequentItems:
-            print(i)
-        _,self.peak_memory = tracemalloc.get_traced_memory()
-        tracemalloc.stop()
-        self.end_timestamp = time.time()
-        return 0
+
 
     def rundExp(self):
         self.start_timestamp = time.time()

@@ -7,8 +7,23 @@ class ParserDiabete:
     def __init__(
         self,
         raw: pd.DataFrame,
-    ):
-        self.raw = raw
+    ):self.raw = raw
+
+    def parse(self, items: Dict):
+        data = self.raw
+        parsedData = pd.DataFrame(columns=items.keys())
+        for i in range(0, len(data)):
+            list = data.loc[i]
+            line = np.zeros(19, dtype=int)
+            line[self.checkBloodPressure(list.loc["BloodPressure"]) - 1] = 1
+            line[self.checkAge(list.loc["Age"]) - 1] = 1
+            line[self.checkBMI(list.loc["BMI"]) - 1] = 1
+            line[self.checkGlucose(list.loc["Glucose"]) - 1] = 1
+            line[self.checkOutcome(list.loc["Outcome"]) - 1] = 1
+            new_df = pd.DataFrame([line], columns=items.keys())
+            parsedData = pd.concat([parsedData, new_df], axis=0, ignore_index=True)
+
+        return parsedData
 
     def getFeatures(self):
         data = self.raw
@@ -77,18 +92,4 @@ class ParserDiabete:
             i = 19
         return i
 
-    def parse(self, items: Dict):
-        data = self.raw
-        parsedData = pd.DataFrame(columns=items.keys())
-        for i in range(0, len(data)):
-            list = data.loc[i]
-            line = np.zeros(19, dtype=int)
-            line[self.checkBloodPressure(list.loc["BloodPressure"]) - 1] = 1
-            line[self.checkAge(list.loc["Age"]) - 1] = 1
-            line[self.checkBMI(list.loc["BMI"]) - 1] = 1
-            line[self.checkGlucose(list.loc["Glucose"]) - 1] = 1
-            line[self.checkOutcome(list.loc["Outcome"]) - 1] = 1
-            new_df = pd.DataFrame([line], columns=items.keys())
-            parsedData = pd.concat([parsedData, new_df], axis=0, ignore_index=True)
 
-        return parsedData

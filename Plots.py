@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 
 
 data=pd.read_csv("DiabetesTransactions.csv")
-
 AgeItems=["Childhood",  "Adolescence","EarlyAdulthood", "Adulthood","MiddleAge", "EarlyElder", "LateElder",] 
 AgeCounts=[0,0,0,0,0,0,0]
 BloodPressureItems=["NormalBloodPressure", "Hypertension1BloodPressure", "Hypertension2BloodPressure" ]

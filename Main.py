@@ -8,7 +8,6 @@ from pyECLAT import ECLAT
 import pandas as pd
 import matplotlib.pyplot as plt
 from mlxtend.frequent_patterns import apriori
-from mlxtend.frequent_patterns import association_rules
 
 # dEclat  : minsupp=20%
 # Test :
@@ -28,18 +27,18 @@ print("Frequent itmsets count :"+str(len(d.frequentItems)))
 print("Total Time ~ "+str((d.end_timestamp - d.start_timestamp))+" s")
 print("Maximum Memory usage ~ "+str(d.peak_memory/1024 )+" Kb")
 
-# # ECLAT 
-# dataframe = pd.read_csv('DiabetesTransactions.csv', header=None) 
-# eclat_instance = ECLAT(data=dataframe, verbose=True)
+# ECLAT 
+dataframe = pd.read_csv('DiabetesTransactions.csv', header=None) 
+eclat_instance = ECLAT(data=dataframe, verbose=True)
 
-# eclat_instance.df_bin   #generate a binary dataframe, that can be used for other analyzes.
-# eclat_instance.uniq_    #a list with all the names of the different items
-# get_ECLAT_indexes, get_ECLAT_supports = eclat_instance.fit(min_support=0.2,
-#                                                             min_combination=1,
-#                                                             max_combination=2,
-#                                                             separator=' , ',
-#                                                             verbose=True)
-# print(get_ECLAT_supports)
+eclat_instance.df_bin   #generate a binary dataframe, that can be used for other analyzes.
+eclat_instance.uniq_    #a list with all the names of the different items
+get_ECLAT_indexes, get_ECLAT_supports = eclat_instance.fit(min_support=0.2,
+                                                            min_combination=1,
+                                                            max_combination=2,
+                                                            separator=' , ',
+                                                            verbose=True)
+print(get_ECLAT_supports)
 
 
 
