@@ -14,15 +14,16 @@ class ParserDiabete:
         parsedData = pd.DataFrame(columns=items.keys())
         for i in range(0, len(data)):
             list = data.loc[i]
-            line = np.zeros(19, dtype=int)
+            line = np.zeros(23, dtype=int)
             line[self.checkBloodPressure(list.loc["BloodPressure"]) - 1] = 1
             line[self.checkAge(list.loc["Age"]) - 1] = 1
             line[self.checkBMI(list.loc["BMI"]) - 1] = 1
             line[self.checkGlucose(list.loc["Glucose"]) - 1] = 1
             line[self.checkOutcome(list.loc["Outcome"]) - 1] = 1
+            line[self.checkPregnancies(list.loc["Pregnancies"]) - 1] = 1
             new_df = pd.DataFrame([line], columns=items.keys())
             parsedData = pd.concat([parsedData, new_df], axis=0, ignore_index=True)
-
+        parsedData.to_csv("BinaryTransactions.csv")
         return parsedData
 
     def getFeatures(self):
@@ -90,6 +91,18 @@ class ParserDiabete:
             i = 18
         else:
             i = 19
+        return i
+
+    def checkPregnancies(self, var: float):
+        i = 0
+        if var == 0:
+            i = 20
+        elif var < 5:
+            i = 21
+        elif var < 10:
+            i = 22
+        else: 
+            i=23
         return i
 
 

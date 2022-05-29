@@ -1,3 +1,4 @@
+from jinja2 import PrefixLoader
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -14,6 +15,8 @@ GlucoseItems=[  "NormalGlucose",  "PrediabeteGlucose", "DiabeteGlucose"]
 GlucoseCounts=[0,0,0]
 OutcomeClass=["OutcomeYes", "OutcomeNo"]
 OutcomeCounts=[0,0]
+PregClass=[ "NoPregnancie" , "MinusFivePreg" ,"FiveToTen_preg" , "PlusTenPreg"]
+PregCounts=[0,0,0,0]
 
 for i in data:
     j=0
@@ -35,6 +38,9 @@ for i in data:
         for m in OutcomeClass:
             if m==k:
                 OutcomeCounts[OutcomeClass.index(m)]+=1
+        for m in PregClass:
+            if m==k:
+                PregCounts[PregClass.index(m)]+=1
 
         
 # Outcome counts plot 
@@ -75,4 +81,12 @@ plt.title('BMI counts')
 plt.xlabel('BMI categories')
 plt.ylabel('Counts')
 plt.savefig("BMICounts.png")
+plt.show()
+
+# Preg counts plot 
+plt.bar(PregClass, PregCounts)
+plt.title('Pregnancies counts')
+plt.xlabel('Pregnancies Classes')
+plt.ylabel('Counts')
+plt.savefig(r"PregCounts.png")
 plt.show()

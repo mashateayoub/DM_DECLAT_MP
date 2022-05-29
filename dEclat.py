@@ -2,19 +2,42 @@ import time
 import tracemalloc
 import pandas as pd
 from Parser import ParserDiabete as pr
+from numpy import nan
 
 
 class dEclat:
     def __init__(self, minsupp: int, data):
         self.minsupp = minsupp
-        self.items = {
-                1: "NormalGlucose",  2: "PrediabeteGlucose", 3: "DiabeteGlucose",
-                4: "NormalBloodPressure",  5: "Hypertension1BloodPressure",6: "Hypertension2BloodPressure",
-                7: "UnderweightBMI", 8: "HealthyweightBMI", 9: "OverweightBMI", 10: "ObesityBMI",
-                11: "Childhood",  12: "Adolescence",13: "EarlyAdulthood",14: "Adulthood",15: "MiddleAge",16: "EarlyElder",17: "LateElder",
-                18: "OutcomeYes",  19: "OutcomeNo",
+        self.items ={
+                1: "NormalGlucose",  # Glucose
+                2: "PrediabeteGlucose",
+                3: "DiabeteGlucose",
+                4: "NormalBloodPressure",  # Blood Pressure
+                5: "Hypertension1BloodPressure",
+                6: "Hypertension2BloodPressure",
+                7: "UnderweightBMI",  # BMI
+                8: "HealthyweightBMI",
+                9: "OverweightBMI",
+                10: "ObesityBMI",
+                11: "Childhood",  # Age
+                12: "Adolescence",
+                13: "EarlyAdulthood",
+                14: "Adulthood",
+                15: "MiddleAge",
+                16: "EarlyElder",
+                17: "LateElder",
+                18: "OutcomeYes",  # Outcome
+                19: "OutcomeNo",
+                20: "NoPregnancie" , #pregnancies
+                21: "MinusFivePreg" , 
+                22: "FiveToTen_preg" , 
+                23: "PlusTenPreg"
             }
         self.data = pd.read_csv(data)
+        # mark zero values as missing or NaN
+        self.data[["Glucose",	"BloodPressure","BMI"	]] = self.data[["Glucose",	"BloodPressure"	,"BMI"]].replace(0, nan)
+        # fill missing values with mean column values
+        self.data.fillna(self.data.mean(), inplace=True)
         self.parser = pr(self.data)
         self.database=pd.DataFrame
         self.tidsetDB = {}

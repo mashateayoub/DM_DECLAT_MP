@@ -38,7 +38,8 @@ get_ECLAT_indexes, get_ECLAT_supports = eclat_instance.fit(min_support=0.2,
                                                             max_combination=2,
                                                             separator=' , ',
                                                             verbose=True)
-print(get_ECLAT_supports)
+print(get_ECLAT_supports,len(get_ECLAT_supports) )
+
 
 
 
@@ -90,8 +91,7 @@ for i in [0.2, 0.3, 0.4, 0.5, 0.6, 0.7]:
     MemUsage.append(peak_memory/1024)
 
 # Apriori
-columns=[ "NormalGlucose",  "PrediabeteGlucose", "DiabeteGlucose","NormalBloodPressure", "Hypertension1BloodPressure", "Hypertension2BloodPressure" , "UnderweightBMI", "HealthyweightBMI", "OverweightBMI", "ObesityBMI","Childhood",  "Adolescence","EarlyAdulthood", "Adulthood","MiddleAge", "EarlyElder", "LateElder", "OutcomeYes", "OutcomeNo"]
-dataframe = pd.read_csv('BinaryTransactions.csv', header=None)
+dataframe = pd.read_csv('BinaryData.csv', header=None)
 MinSuppsA=[]
 TimesA=[]
 MemUsageA=[]
@@ -99,7 +99,7 @@ FreqItemsA=[]
 for i in [0.2, 0.3, 0.4, 0.5, 0.6, 0.7]:
     start_timestamp = time.time()
     tracemalloc.start()
-    frequent_itemsets = apriori(dataframe, min_support=i, use_colnames=True, max_len=2).sort_values(by=['support'], ascending=False)
+    frequent_itemsets = apriori(dataframe, min_support=i, max_len=2).sort_values(by=['support'], ascending=False)
     _,peak_memory = tracemalloc.get_traced_memory()
     tracemalloc.stop()
     end_timestamp = time.time()
