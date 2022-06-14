@@ -34,9 +34,7 @@ class dEclat:
                 23: "PlusTenPreg"
             }
         self.data = pd.read_csv(data)
-        # mark zero values as missing or NaN
         self.data[["Glucose",	"BloodPressure","BMI"	]] = self.data[["Glucose",	"BloodPressure"	,"BMI"]].replace(0, nan)
-        # fill missing values with mean column values
         self.data.fillna(self.data.mean(), inplace=True)
         self.parser = pr(self.data)
         self.database=pd.DataFrame
